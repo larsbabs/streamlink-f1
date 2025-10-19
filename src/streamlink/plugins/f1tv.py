@@ -97,7 +97,8 @@ class F1TV(Plugin):
             return True
 
         except Exception as err:
-            log.error(f"Authentication failed: {err}")
+            log.error("Authentication failed.")
+            log.debug(f"Exception during authentication: {err}")
             return False
 
     def _get_content_id(self):
