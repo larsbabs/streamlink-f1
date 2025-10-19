@@ -7,9 +7,8 @@ $account A Formula 1 TV subscription is required
 
 import logging
 import re
-from urllib.parse import urljoin, urlparse
 
-from streamlink.plugin import Plugin, PluginError, pluginargument, pluginmatcher
+from streamlink.plugin import Plugin, pluginargument, pluginmatcher
 from streamlink.plugin.api import validate
 from streamlink.stream.hls import HLSStream
 
@@ -42,7 +41,7 @@ class F1TV(Plugin):
     _api_url = "https://f1tv.formula1.com/api"
     _login_url = "https://api.formula1.com/v2/account/subscriber/authenticate/by-password"
     _token_url = "https://f1tv.formula1.com/api/viewings"
-    
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self._authed = False
@@ -88,7 +87,7 @@ class F1TV(Plugin):
 
             # Try to get token from either location in response
             self._token = auth_resp.get("subscriptionToken") or auth_resp.get("data", {}).get("subscriptionToken")
-            
+
             if not self._token:
                 log.error("Failed to get authentication token from F1 TV")
                 return False
@@ -185,7 +184,7 @@ class F1TV(Plugin):
 
             # Try different response formats
             stream_url = (
-                stream_data.get("tokenised_url") or 
+                stream_data.get("tokenised_url") or
                 stream_data.get("url") or
                 (stream_data.get("objects", [{}])[0].get("tokenised_url") if stream_data.get("objects") else None) or
                 (stream_data.get("objects", [{}])[0].get("url") if stream_data.get("objects") else None)
