@@ -58,7 +58,7 @@ class F1TV(Plugin):
             log.error("F1 TV requires authentication. Please provide --f1tv-email and --f1tv-password")
             return False
 
-        log.debug(f"Attempting to login as {email}")
+        log.debug("Attempting to login to F1 TV")
 
         # First, authenticate to get the token
         auth_data = {
